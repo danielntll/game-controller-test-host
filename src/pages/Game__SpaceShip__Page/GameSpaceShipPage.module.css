@@ -1,0 +1,6 @@
+.page {
+  overflow: hidden;
+}
+.content {
+  overflow: hidden !important;
+}
