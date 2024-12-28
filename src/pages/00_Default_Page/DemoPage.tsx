@@ -8,15 +8,15 @@ import {
 import { text } from "./text";
 
 import styles from "./DemoPage.module.css";
-import { useContext } from "react";
-import { ContextLanguage } from "../../context/contextLanguage";
+import { useContextLanguage } from "../../context/contextLanguage";
 
-interface PageProps { }
+interface PageProps {}
 
-const DemoPage: React.FC<PageProps> = ({ }) => {
+const DemoPage: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
-  const { l } = useContext(ContextLanguage);
-  //CONDITIONS -----------------------
+  const { l } = useContextLanguage();
+  //USE STATES -----------------------
+  //USE EFFECTS ----------------------
   //FUNCTIONS ------------------------
   //RETURN COMPONENT -----------------
   return (

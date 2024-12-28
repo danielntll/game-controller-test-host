@@ -31,7 +31,7 @@ import RegistrazionePage from "./pages/Registrazione_Page/RegistrazionePage";
 import { loginRoutes } from "./routes/routes";
 import {
   route_GameDetails,
-  route_GameSpaceShipPage,
+  route_GameLobby,
   route_HomePage,
   route_ImpostazioniPage,
   route_LoginPage,
@@ -40,7 +40,9 @@ import {
 import LoginPage from "./pages/Login_Page/LoginPage";
 import HomePage from "./pages/Home_Page/HomePage";
 import ImpostazioniPage from "./pages/Impostazioni/ImpostazioniPage";
-import GameSpaceShipPage from "./pages/Game__Details/GameDetails";
+import GameDetails from "./pages/Game__Details/GameDetails";
+import { ProviderContextToast } from "./context/systemEvents/contextToast";
+import GameLobby from "./pages/Game__Lobby/GameLobby";
 
 setupIonicReact({
   rippleEffect: false,
@@ -56,7 +58,9 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <ProviderContextLanguage>
-          <AuthContextProvider />
+          <ProviderContextToast>
+            <AuthContextProvider />
+          </ProviderContextToast>
         </ProviderContextLanguage>
       </IonReactRouter>
     </IonApp>
@@ -76,7 +80,10 @@ export const authenticatedRoutesOutlet = () => {
       <IonRouterOutlet id="main">
         {/* --------------------------- GAMES --------------------- */}
         <Route exact path={route_GameDetails.path}>
-          <GameSpaceShipPage />
+          <GameDetails />
+        </Route>
+        <Route exact path={route_GameLobby.path}>
+          <GameLobby />
         </Route>
         {/* <Route exact path={route_GameSpaceShipPage.path}>
           <GameSpaceShipPage />

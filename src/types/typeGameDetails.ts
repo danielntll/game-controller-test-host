@@ -1,4 +1,5 @@
 import { typeAvailableLanguagesModel } from "./typeAvailableLanguage";
+import { typeRoute } from "./typeRoute";
 
 export type typeGameDetails = {
   gameUID: string;

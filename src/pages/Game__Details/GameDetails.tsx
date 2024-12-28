@@ -5,10 +5,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
-  IonItem,
   IonLabel,
-  IonList,
-  IonListHeader,
   IonMenuButton,
   IonPage,
   IonTitle,
@@ -25,7 +22,8 @@ import { route_HomePage } from "../../routes/singleRoute";
 import { addOutline, qrCodeOutline } from "ionicons/icons";
 import { typeGameDetails } from "../../types/typeGameDetails";
 import { constGames } from "../../const/constGames";
-import CardGame from "../../components/Card__Game/CardGame";
+import { useContextManagerLobby } from "../../context/contextManagerLobby";
+import ActiveLobbies from "./components/ActiveLobbies/ActiveLobbies";
 
 interface PageProps {}
 
@@ -33,13 +31,12 @@ const GameDetails: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContextLanguage();
   const { gameUID } = useParams<{ gameUID: string }>();
+  const { handleCreateNewLobby } = useContextManagerLobby();
   const _location: any = useLocation();
-  //CONDITIONS -----------------------
+  //USE STATES -----------------------
   const [_showBackButton, _setShowBackButton] = useState<boolean>(false);
-  const [_activeRooms, _setActiveRooms] = useState<any[]>([]);
-  const [_invites, _setInvites] = useState<any[]>([]);
   const [_thisGame, _setThisGame] = useState<typeGameDetails | null>(null);
-  //USEEFFECTS -----------------------
+  //USE EFFECTS ----------------------
   useIonViewWillEnter(() => {
     if (_location.state && _location.state.from === route_HomePage.path) {
       _setShowBackButton(true);
@@ -48,10 +45,17 @@ const GameDetails: React.FC<PageProps> = ({}) => {
 
   useEffect(() => {
     if (gameUID) {
-      _setThisGame(constGames.find((game) => game.gameUID === gameUID) ?? null);
+      _setThisGame(
+        constGames.find((game: typeGameDetails) => game.gameUID === gameUID) ??
+          null
+      );
     }
   }, [gameUID]);
   //FUNCTIONS ------------------------
+  const _handleCreateRoom = () => {
+    handleCreateNewLobby(gameUID);
+  };
+  const _handleJoinRoom = () => {};
   //RETURN COMPONENT -----------------
   return (
     <IonPage className={styles.page}>
@@ -75,7 +79,7 @@ const GameDetails: React.FC<PageProps> = ({}) => {
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content + " ion-padding"}>
           <>
-            <IonButton expand="block">
+            <IonButton expand="block" onClick={() => _handleCreateRoom()}>
               {text[l].createRoom}
               <IonIcon className="ion-margin-start" icon={addOutline} />
             </IonButton>
@@ -92,20 +96,8 @@ const GameDetails: React.FC<PageProps> = ({}) => {
               <p className="ion-padding">{text[l].joinWithQrCode_label}</p>
             </IonLabel>
           </>
-          <IonList>
-            <IonListHeader>{text[l].activeRooms}</IonListHeader>
-            {_activeRooms.map((room) => (
-              <IonItem key={room.id} routerLink={`/game/${room.id}`}>
-                <IonLabel>{room.name}</IonLabel>
-              </IonItem>
-            ))}
-            {_activeRooms.length === 0 && (
-              <IonLabel>
-                <p className="ion-padding">{text[l].noActiveRooms}</p>
-              </IonLabel>
-            )}
-          </IonList>
-          <IonList>
+          <ActiveLobbies gameUID={gameUID} />
+          {/* <IonList>
             <IonListHeader>{text[l].invites}</IonListHeader>
             {_invites.map((room) => (
               <IonItem key={room.id} routerLink={`/game/${room.id}`}>
@@ -117,7 +109,7 @@ const GameDetails: React.FC<PageProps> = ({}) => {
                 <p className="ion-padding">{text[l].noInvites}</p>
               </IonLabel>
             )}
-          </IonList>
+          </IonList> */}
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>

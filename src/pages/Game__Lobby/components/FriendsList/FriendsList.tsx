@@ -1,10 +1,10 @@
-import styles from "./DemoComponent.module.css";
-import { useContextLanguage } from "../../context/contextLanguage";
+import { useContextLanguage } from "../../../../context/contextLanguage";
+import styles from "./FriendsList.module.css";
 import { text } from "./text";
 
 interface ContainerProps {}
 
-const DemoComponent: React.FC<ContainerProps> = ({}) => {
+const FriendsList: React.FC<ContainerProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContextLanguage();
   //USE STATES -----------------------
@@ -18,4 +18,4 @@ const DemoComponent: React.FC<ContainerProps> = ({}) => {
   );
 };
 
-export default DemoComponent;
+export default FriendsList;

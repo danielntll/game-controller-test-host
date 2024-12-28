@@ -35,14 +35,14 @@ const GameSpaceShipGameplayPage: React.FC<PageProps> = ({}) => {
   //USEEFFECTS -----------------------
   useEffect(() => {
     if (!_gameDbRef) {
-      _setGameDbRef(
-        ref(
-          realtimeDatabase,
-          route_GameSpaceShipPage.gameDetails?.gameUID +
-            "/" +
-            auth.currentUser?.uid
-        )
-      );
+      // _setGameDbRef(
+      //   ref(
+      //     realtimeDatabase,
+      //     route_GameSpaceShipPage.gameDetails?.gameUID +
+      //       "/" +
+      //       auth.currentUser?.uid
+      //   )
+      // );
     }
   }, []);
   useEffect(() => {}, [_movement, _triangle, _square, _circle, _cross]);

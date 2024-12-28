@@ -22,8 +22,8 @@ import { ContextLanguage } from "../contextLanguage";
 import { ContextToast } from "../systemEvents/contextToast";
 
 import { textAuthContext } from "./textAuthContext";
-import { DataContextProvider } from "../contextData";
 import { auth } from "../../firebase/firebaseConfig";
+import { ContextManagerLobbyProvider } from "../contextManagerLobby";
 
 type AuthType = {
   authenticateUser: User | undefined;
@@ -98,7 +98,9 @@ export const AuthContextProvider = () => {
         />
       ) : null}
       {authenticateUser?.emailVerified == true ? (
-        <DataContextProvider>{authenticatedRoutesOutlet()}</DataContextProvider>
+        <ContextManagerLobbyProvider>
+          {authenticatedRoutesOutlet()}
+        </ContextManagerLobbyProvider>
       ) : (
         loginRoutesOutlet()
       )}

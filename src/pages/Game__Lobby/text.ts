@@ -2,9 +2,9 @@ import { typeAvailableLanguagesModel } from "../../types/typeAvailableLanguage";
 
 export const text: typeAvailableLanguagesModel = {
   it_IT: {
-    componentTitle: "DefaultComponent",
+    pageTitle: "Lobby",
   },
   en_GB: {
-    componentTitle: "DefaultComponent",
+    pageTitle: "Lobby",
   },
 };

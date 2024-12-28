@@ -1,3 +1,4 @@
+import { route_GameSpaceShipPage } from "../routes/singleRoute";
 import { typeGameDetails } from "../types/typeGameDetails";
 import { rocket, rocketOutline } from "ionicons/icons";
 
@@ -8,8 +9,8 @@ export const constGameSpaceShip: typeGameDetails = {
     notActive: rocketOutline,
   },
   title: {
-    it_IT: "SpaceShip",
-    en_GB: "SpaceShip",
+    it_IT: "Space Ship",
+    en_GB: "Space Ship",
   },
   subtitle: {
     it_IT: "Salva lo spazio",

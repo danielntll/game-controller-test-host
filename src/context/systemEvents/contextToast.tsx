@@ -15,15 +15,9 @@ type typeContextToast = {
 };
 
 export const ContextToast = createContext<typeContextToast>({
-  toast: () => {
-    console.log("toast");
-  },
-  loadingAlert: () => {
-    console.log("loading");
-  },
-  dismissLoadingAlert: () => {
-    console.log("dismissLoading");
-  },
+  toast: () => {},
+  loadingAlert: () => {},
+  dismissLoadingAlert: () => {},
 });
 
 export const useContextToast = () => useContext(ContextToast);
