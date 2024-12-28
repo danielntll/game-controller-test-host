@@ -17,29 +17,40 @@ import {
 } from "@ionic/react";
 import { text } from "./text";
 
-import styles from "./GameSpaceShipPage.module.css";
+import styles from "./GameDetails.module.css";
 import { useContextLanguage } from "../../context/contextLanguage";
-import { useState } from "react";
-import { useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router";
 import { route_HomePage } from "../../routes/singleRoute";
 import { addOutline, qrCodeOutline } from "ionicons/icons";
+import { typeGameDetails } from "../../types/typeGameDetails";
+import { constGames } from "../../const/constGames";
+import CardGame from "../../components/Card__Game/CardGame";
 
 interface PageProps {}
 
-const GameSpaceShipPage: React.FC<PageProps> = ({}) => {
+const GameDetails: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContextLanguage();
-  const location: any = useLocation();
+  const { gameUID } = useParams<{ gameUID: string }>();
+  const _location: any = useLocation();
   //CONDITIONS -----------------------
   const [_showBackButton, _setShowBackButton] = useState<boolean>(false);
   const [_activeRooms, _setActiveRooms] = useState<any[]>([]);
   const [_invites, _setInvites] = useState<any[]>([]);
+  const [_thisGame, _setThisGame] = useState<typeGameDetails | null>(null);
   //USEEFFECTS -----------------------
   useIonViewWillEnter(() => {
-    if (location.state && location.state.from === route_HomePage.path) {
+    if (_location.state && _location.state.from === route_HomePage.path) {
       _setShowBackButton(true);
     }
-  }, [location.state]);
+  }, [_location.state]);
+
+  useEffect(() => {
+    if (gameUID) {
+      _setThisGame(constGames.find((game) => game.gameUID === gameUID) ?? null);
+    }
+  }, [gameUID]);
   //FUNCTIONS ------------------------
   //RETURN COMPONENT -----------------
   return (
@@ -56,7 +67,8 @@ const GameSpaceShipPage: React.FC<PageProps> = ({}) => {
               <IonMenuButton />
             )}
           </IonButtons>
-          <IonTitle>{route_HomePage.tab[l]}</IonTitle>
+          <IonTitle>{_thisGame?.title[l]}</IonTitle>
+          <IonButtons slot="end"></IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className={styles.content}>
@@ -113,4 +125,4 @@ const GameSpaceShipPage: React.FC<PageProps> = ({}) => {
   );
 };
 
-export default GameSpaceShipPage;
+export default GameDetails;

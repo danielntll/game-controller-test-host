@@ -2,21 +2,10 @@ import { typeAvailableLanguagesModel } from "./typeAvailableLanguage";
 
 export type typeRoute = {
   path: string;
-  tab: {
-    it_IT: string;
-    en_GB: string;
-  };
+  pathBase?: string;
+  tab: typeAvailableLanguagesModel;
   icons: {
     active: string;
     notActive: string;
   };
-  gameDetails?: typeGameDetails;
-};
-
-export type typeGameDetails = {
-  gameUID: string;
-  title: typeAvailableLanguagesModel;
-  subtitle: typeAvailableLanguagesModel;
-  imageURL: string;
-  description: typeAvailableLanguagesModel;
 };

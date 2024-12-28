@@ -17,6 +17,9 @@ import { text } from "./text";
 import { useContextLanguage } from "../../context/contextLanguage";
 import { routesGames, routesServices } from "../../routes/routes";
 import { typeRoute } from "../../types/typeRoute";
+import { constGames } from "../../const/constGames";
+import { typeGameDetails } from "../../types/typeGameDetails";
+import { route_GameDetails } from "../../routes/singleRoute";
 
 const ButtonMenu: React.FC = () => {
   const location = useLocation();
@@ -60,12 +63,15 @@ const ButtonMenu: React.FC = () => {
 
         <IonList id="inbox-list">
           <IonListHeader>{text[l].labels}</IonListHeader>
-          {routesGames.map((page: typeRoute, index) => {
+          {constGames.map((_game: typeGameDetails, _index) => {
+            const __gamePath: string =
+              route_GameDetails.pathBase + "/" + _game.gameUID;
+            const __isOnGamePage: boolean = location.pathname === __gamePath;
             return (
-              <IonMenuToggle key={index} autoHide={false}>
+              <IonMenuToggle key={_index + _game.gameUID} autoHide={false}>
                 <IonItem
-                  className={location.pathname === page.path ? "selected" : ""}
-                  routerLink={page.path}
+                  className={__isOnGamePage ? "selected" : ""}
+                  routerLink={__gamePath}
                   routerDirection="none"
                   lines="none"
                   detail={false}
@@ -73,16 +79,12 @@ const ButtonMenu: React.FC = () => {
                   <IonIcon
                     aria-hidden="true"
                     slot="start"
-                    color={
-                      location.pathname === page.path ? "primary" : "medium"
-                    }
+                    color={__isOnGamePage ? "primary" : "medium"}
                     icon={
-                      location.pathname === page.path
-                        ? page.icons.active
-                        : page.icons.notActive
+                      __isOnGamePage ? _game.icon.active : _game.icon.notActive
                     }
                   />
-                  <IonLabel>{page.tab[l]}</IonLabel>
+                  <IonLabel>{_game.title[l]}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
             );

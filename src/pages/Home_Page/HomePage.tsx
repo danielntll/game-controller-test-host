@@ -19,6 +19,9 @@ import { routesGames } from "../../routes/routes";
 import { typeRoute } from "../../types/typeRoute";
 import CardGame from "../../components/Card__Game/CardGame";
 import { useHistory, useLocation } from "react-router";
+import { constGames } from "../../const/constGames";
+import { typeGameDetails } from "../../types/typeGameDetails";
+import { route_GameDetails } from "../../routes/singleRoute";
 
 interface PageProps {}
 
@@ -29,8 +32,10 @@ const HomePage: React.FC<PageProps> = ({}) => {
   const location = useLocation();
   //CONDITIONS -----------------------
   //FUNCTIONS ------------------------
-  const _handleGoToGamePage = (path: string) => {
-    history.push(path, { from: location.pathname });
+  const _handleGoToGamePage = (gameUID: string) => {
+    history.push(route_GameDetails.pathBase + "/" + gameUID, {
+      from: location.pathname,
+    });
   };
   //RETURN COMPONENT -----------------
   return (
@@ -51,15 +56,15 @@ const HomePage: React.FC<PageProps> = ({}) => {
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content + " ion-padding"}>
-          {routesGames.map((game: typeRoute, index: number) => {
+          {constGames.map((game: typeGameDetails, index: number) => {
             return (
               <CardGame
-                title={game.gameDetails?.title[l] ?? ""}
-                subtitle={game.gameDetails?.subtitle[l]}
-                description={game.gameDetails?.description[l]}
-                imgURL={game.gameDetails?.imageURL ?? ""}
+                title={game.title[l] ?? ""}
+                subtitle={game.subtitle[l]}
+                description={game.description[l]}
+                imgURL={game.imageURL ?? ""}
                 key={index}
-                callbackOnClick={() => _handleGoToGamePage(game.path)}
+                callbackOnClick={() => _handleGoToGamePage(game.gameUID)}
               />
             );
           })}

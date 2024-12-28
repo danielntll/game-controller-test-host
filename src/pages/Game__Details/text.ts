@@ -7,10 +7,10 @@ export const text: typeAvailableLanguagesModel = {
     noActiveRooms: "Nessuna partita in corso",
     invites: "Inviti",
     noInvites: "Nessun invito ricevuto",
-    createRoom: "Crea partita",
+    createRoom: "Gioca",
     createRoom_label:
       "Crea la stanza della partita, potrai invitare i tuoi amici durante la fase di creazione.",
-    joinWithQrCode: "Unisciti con codice QR",
+    joinWithQrCode: "Unisciti",
     joinWithQrCode_label: "Scansiona il QR code per entrare nella stanza",
   },
   en_GB: {
