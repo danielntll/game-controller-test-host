@@ -153,7 +153,11 @@ const LoginPage: React.FC = () => {
               </div>
             </IonCard>
             <div className="ion-padding-horizontal">
-              <IonButton onClick={() => handleGoToRegistrazione()}>
+              <IonButton
+                expand="block"
+                fill="clear"
+                onClick={() => handleGoToRegistrazione()}
+              >
                 {text[l].btn__registrazione}
               </IonButton>
             </div>
