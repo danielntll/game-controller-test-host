@@ -30,7 +30,7 @@ const CardGame: React.FC<ContainerProps> = ({
   //FUNCTIONS ------------------------
   //RETURN COMPONENT -----------------
   return (
-    <IonCard onClick={callbackOnClick}>
+    <IonCard className={styles.card} onClick={callbackOnClick}>
       <img src={imgURL} alt={title} />
       <IonCardHeader>
         <IonCardTitle>{title}</IonCardTitle>
