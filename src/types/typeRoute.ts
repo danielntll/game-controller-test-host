@@ -1,3 +1,5 @@
+import { typeAvailableLanguagesModel } from "./typeAvailableLanguage";
+
 export type typeRoute = {
   path: string;
   tab: {
@@ -8,4 +10,13 @@ export type typeRoute = {
     active: string;
     notActive: string;
   };
+  gameDetails?: typeGameDetails;
+};
+
+export type typeGameDetails = {
+  gameUID: string;
+  title: typeAvailableLanguagesModel;
+  subtitle: typeAvailableLanguagesModel;
+  imageURL: string;
+  description: typeAvailableLanguagesModel;
 };

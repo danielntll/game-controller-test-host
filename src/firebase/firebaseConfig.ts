@@ -7,6 +7,7 @@ import {
   initializeAuth,
 } from "firebase/auth";
 import { Capacitor } from "@capacitor/core";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_SITE_FIREBASE_API_KEY,
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
+export const realtimeDatabase = getDatabase(app);
 export const db = getFirestore(app);
 export const auth = fixAuth();
 

@@ -11,45 +11,12 @@ import {
 } from "@ionic/react";
 
 import { useLocation } from "react-router-dom";
-import {
-  archiveOutline,
-  archiveSharp,
-  bookmarkOutline,
-  heartOutline,
-  heartSharp,
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
-} from "ionicons/icons";
 import "./Button__Menu.css";
 import { useAuthContext } from "../../context/auth/contextAuth";
 import { text } from "./text";
 import { useContextLanguage } from "../../context/contextLanguage";
 import { routesGames, routesServices } from "../../routes/routes";
 import { typeRoute } from "../../types/typeRoute";
-
-interface AppPage {
-  url: string;
-  iosIcon: string;
-  mdIcon: string;
-  title: string;
-}
-
-const appPages: AppPage[] = [
-  {
-    title: "Inbox",
-    url: "/folder/Inbox",
-    iosIcon: mailOutline,
-    mdIcon: mailSharp,
-  },
-];
-
-const labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
 
 const ButtonMenu: React.FC = () => {
   const location = useLocation();
