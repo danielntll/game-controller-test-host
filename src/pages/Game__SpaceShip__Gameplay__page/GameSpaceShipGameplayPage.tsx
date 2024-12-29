@@ -64,28 +64,34 @@ const GameSpaceShipGameplayPage: React.FC<PageProps> = ({}) => {
     }
   }, [_movement, _triangle, _square, _circle, _cross, _gameDbRef]);
   //FUNCTIONS ------------------------
+  const _handleClickOnJoystick = async (ev: IJoystickUpdateEvent) => {
+    await Haptics.impact({ style: ImpactStyle.Medium });
+  };
   const _handleJoystick = async (ev: IJoystickUpdateEvent) => {
     _setMovement(ev);
-    await Haptics.impact({ style: ImpactStyle.Light });
   };
   const _handleStopJoystick = async (ev: IJoystickUpdateEvent) => {
     _setMovement(ev);
   };
   const _handleTriangle = async (ev: boolean) => {
     _setTriangle(ev);
-    await Haptics.impact({ style: ImpactStyle.Medium });
+    if (ev === true) _buttonFeedback();
   };
   const _handleSquare = async (ev: boolean) => {
     _setSquare(ev);
-    await Haptics.impact({ style: ImpactStyle.Medium });
+    if (ev === true) _buttonFeedback();
   };
   const _handleCircle = async (ev: boolean) => {
     _setCircle(ev);
-    await Haptics.impact({ style: ImpactStyle.Medium });
+    if (ev === true) _buttonFeedback();
   };
   const _handleCross = async (ev: boolean) => {
     _setCross(ev);
-    await Haptics.impact({ style: ImpactStyle.Medium });
+    if (ev === true) _buttonFeedback();
+  };
+
+  const _buttonFeedback = async () => {
+    await Haptics.impact({ style: ImpactStyle.Light });
   };
   //RETURN COMPONENT -----------------
   return (
@@ -99,14 +105,10 @@ const GameSpaceShipGameplayPage: React.FC<PageProps> = ({}) => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{text[l].pageTitle}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content + " ion-padding"}>
           <Controller
+            callbackClickOnJoystick={_handleClickOnJoystick}
             callbackEvent={_handleJoystick}
             callbackStopEvent={_handleStopJoystick}
             callbackCircle={_handleCircle}

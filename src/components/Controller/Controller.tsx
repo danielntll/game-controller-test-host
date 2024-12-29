@@ -12,6 +12,7 @@ import {
 
 interface ContainerProps {
   callbackEvent: (data: IJoystickUpdateEvent) => void;
+  callbackClickOnJoystick: (data: IJoystickUpdateEvent) => void;
   callbackStopEvent: (data: IJoystickUpdateEvent) => void;
   callbackTriangle: (isPressed: boolean) => void;
   callbackSquare: (isPressed: boolean) => void;
@@ -21,6 +22,7 @@ interface ContainerProps {
 
 const Controller: React.FC<ContainerProps> = ({
   callbackEvent,
+  callbackClickOnJoystick,
   callbackStopEvent,
   callbackTriangle,
   callbackSquare,
@@ -39,6 +41,7 @@ const Controller: React.FC<ContainerProps> = ({
           sticky={false}
           baseColor="red"
           stickColor="blue"
+          start={callbackClickOnJoystick}
           move={(e) => {
             callbackEvent(e);
           }}
