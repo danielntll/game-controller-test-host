@@ -39,6 +39,8 @@ import { useContextToast } from "../../context/systemEvents/contextToast";
 import { route_LoginPage } from "../../routes/singleRoute";
 import Footer from "../../components/Footer/Footer";
 import { LINK_TERMNS_POLICY } from "../../utils/links";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 const RegistrazionePage: React.FC = () => {
   //VARIABLES ------------------------
@@ -68,7 +70,7 @@ const RegistrazionePage: React.FC = () => {
         } else {
           // 4. ---------  Effettua registrazione ---------
           await createUserWithEmailAndPassword(auth, email, password)
-            .then((data) => {
+            .then(async (data) => {
               sendVerifyEmail(data.user);
             })
             .catch((error) => {
@@ -84,6 +86,7 @@ const RegistrazionePage: React.FC = () => {
       }
     }
   };
+
   const sendVerifyEmail = async (user: User) => {
     try {
       sendEmailVerification(user);

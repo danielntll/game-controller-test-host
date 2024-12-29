@@ -66,7 +66,6 @@ export const ContextManagerLobbyProvider = ({ children }: any) => {
   const [isLobbiesLoading, setIsLobbiesLoading] = useState<boolean>(false);
 
   // ######### Managing Own Lobby #########
-  // const [];
 
   // ######### Join Lobby #########
   // -- Modal status

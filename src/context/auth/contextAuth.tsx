@@ -22,8 +22,9 @@ import { ContextLanguage } from "../contextLanguage";
 import { ContextToast } from "../systemEvents/contextToast";
 
 import { textAuthContext } from "./textAuthContext";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth, db } from "../../firebase/firebaseConfig";
 import { ContextManagerLobbyProvider } from "../contextManagerLobby";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 type AuthType = {
   authenticateUser: User | undefined;
@@ -57,14 +58,14 @@ export const AuthContextProvider = () => {
       setCurrentAuth(auth);
       setIsLoading(false);
       if (user) {
+        console.log("user?.emailVerified ", user?.emailVerified);
         if (user?.emailVerified) {
-          setAuthenticateUser(user);
-          toast("success", textAuthContext[l].info_welcome_back);
-          setIsModalVerifyEmailSend(false);
+          _handleUserSignIn(user);
         } else {
           setIsModalVerifyEmailSend(true);
           signOut(auth);
         }
+
         history.push("/");
       } else {
         history.replace("/");
@@ -79,6 +80,51 @@ export const AuthContextProvider = () => {
       });
     } catch (error) {
       toast("danger", textAuthContext[l].error_generico);
+    }
+  };
+
+  const _handleUserSignIn = async (user: User) => {
+    try {
+      const userDocRef = doc(db, import.meta.env.VITE_SITE_DB_USERS, user.uid);
+      const userDoc = await getDoc(userDocRef);
+      console.log("_handleUserSignIn");
+      if (!userDoc.exists()) {
+        // User document doesn't exist, create it
+        await _storeUserData(user);
+        // toast("success", textAuthContext[l].info_welcome);
+      } else {
+        // User document exists, welcome back
+        // toast("success", textAuthContext[l].info_welcome_back);
+      }
+
+      setAuthenticateUser(user); // Set authenticated user *after* checking/creating Firestore document
+      setIsModalVerifyEmailSend(false);
+      history.push("/");
+    } catch (error) {
+      toast("danger", "Error handling user sign-in.");
+      console.error("Error handling user sign-in:", error);
+    }
+  };
+
+  const _storeUserData = async (user: User) => {
+    console.log("User ", user);
+    try {
+      const usersCollection = doc(
+        db,
+        import.meta.env.VITE_SITE_DB_USERS,
+        user.uid
+      ); // Use doc to create or update user document
+
+      const userData = {
+        userUID: user.uid,
+        createdAtTimestamp: serverTimestamp(),
+        email: user.email,
+      };
+
+      await setDoc(usersCollection, userData, { merge: true }); // Use setDoc with merge: true to avoid overwriting data if it exists
+    } catch (error) {
+      toast("danger", "Error saving user data."); // Show error toast
+      console.error("Error storing user data in Firestore:", error);
     }
   };
   // RETURN ----------------------------------
@@ -99,7 +145,10 @@ export const AuthContextProvider = () => {
       ) : null}
       {authenticateUser?.emailVerified == true ? (
         <ContextManagerLobbyProvider>
-          {authenticatedRoutesOutlet()}
+          <>
+            {authenticatedRoutesOutlet()}
+            {/* ---------- EXTRA UI ---------- */}
+          </>
         </ContextManagerLobbyProvider>
       ) : (
         loginRoutesOutlet()
