@@ -22,6 +22,7 @@ import { useHistory, useLocation } from "react-router";
 import { constGames } from "../../const/constGames";
 import { typeGameDetails } from "../../types/typeGameDetails";
 import { route_GameDetails } from "../../routes/singleRoute";
+import InvitationsList from "../Game__Lobby/components/InvitationsList/InvitationsList";
 
 interface PageProps {}
 
@@ -55,20 +56,23 @@ const HomePage: React.FC<PageProps> = ({}) => {
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
-        <div className={styles.content + " ion-padding"}>
-          {constGames.map((game: typeGameDetails, index: number) => {
-            return (
-              <CardGame
-                title={game.title[l] ?? ""}
-                subtitle={game.subtitle[l]}
-                description={game.description[l]}
-                imgURL={game.imageURL ?? ""}
-                key={index}
-                callbackOnClick={() => _handleGoToGamePage(game.gameUID)}
-              />
-            );
-          })}
-        </div>
+        <>
+          <InvitationsList />
+          <div className={styles.content + " ion-padding"}>
+            {constGames.map((game: typeGameDetails, index: number) => {
+              return (
+                <CardGame
+                  title={game.title[l] ?? ""}
+                  subtitle={game.subtitle[l]}
+                  description={game.description[l]}
+                  imgURL={game.imageURL ?? ""}
+                  key={index}
+                  callbackOnClick={() => _handleGoToGamePage(game.gameUID)}
+                />
+              );
+            })}
+          </div>
+        </>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>
     </IonPage>

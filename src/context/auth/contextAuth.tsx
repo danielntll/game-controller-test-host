@@ -23,7 +23,7 @@ import { ContextToast } from "../systemEvents/contextToast";
 
 import { textAuthContext } from "./textAuthContext";
 import { auth, db } from "../../firebase/firebaseConfig";
-import { ContextManagerLobbyProvider } from "../contextManagerLobby";
+import { ContextManagerLobbyProvider } from "../lobby/contextManagerLobby";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 type AuthType = {
@@ -87,14 +87,14 @@ export const AuthContextProvider = () => {
     try {
       const userDocRef = doc(db, import.meta.env.VITE_SITE_DB_USERS, user.uid);
       const userDoc = await getDoc(userDocRef);
-      console.log("_handleUserSignIn");
+
       if (!userDoc.exists()) {
         // User document doesn't exist, create it
         await _storeUserData(user);
-        // toast("success", textAuthContext[l].info_welcome);
+        toast("success", textAuthContext[l].info_welcome);
       } else {
         // User document exists, welcome back
-        // toast("success", textAuthContext[l].info_welcome_back);
+        toast("success", textAuthContext[l].info_welcome_back);
       }
 
       setAuthenticateUser(user); // Set authenticated user *after* checking/creating Firestore document
@@ -107,7 +107,6 @@ export const AuthContextProvider = () => {
   };
 
   const _storeUserData = async (user: User) => {
-    console.log("User ", user);
     try {
       const usersCollection = doc(
         db,

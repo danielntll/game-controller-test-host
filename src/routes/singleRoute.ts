@@ -13,6 +13,21 @@ import {
 import { typeRoute } from "../types/typeRoute";
 
 // GAMES -----------------
+export const route_InGame: typeRoute<"/game/:gameUID/lobby/:lobbyUID/ingame"> =
+  {
+    getPath: (params) =>
+      `/game/${params.gameUID}/lobby/${params.lobbyUID}/ingame`,
+    path: "/game/:gameUID/lobby/:lobbyUID/ingame",
+    pathBase: "/game",
+    tab: {
+      it_IT: "",
+      en_GB: "",
+    },
+    icons: {
+      active: "",
+      notActive: "",
+    },
+  };
 export const route_GameLobby: typeRoute<"/games/:gameUID/lobby/:lobbyUID"> = {
   getPath: (params) => `/games/${params.gameUID}/lobby/${params.lobbyUID}`,
   path: "/games/:gameUID/lobby/:lobbyUID",

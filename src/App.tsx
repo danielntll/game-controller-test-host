@@ -34,6 +34,7 @@ import {
   route_GameLobby,
   route_HomePage,
   route_ImpostazioniPage,
+  route_InGame,
   route_LoginPage,
   route_RegistrazionePage,
 } from "./routes/singleRoute";
@@ -43,6 +44,7 @@ import ImpostazioniPage from "./pages/Impostazioni/ImpostazioniPage";
 import GameDetails from "./pages/Game__Details/GameDetails";
 import { ProviderContextToast } from "./context/systemEvents/contextToast";
 import GameLobby from "./pages/Game__Lobby/GameLobby";
+import GameSpaceShipGameplayPage from "./pages/Game__SpaceShip__Gameplay__page/GameSpaceShipGameplayPage";
 
 setupIonicReact({
   rippleEffect: false,
@@ -85,9 +87,9 @@ export const authenticatedRoutesOutlet = () => {
         <Route exact path={route_GameLobby.path}>
           <GameLobby />
         </Route>
-        {/* <Route exact path={route_GameSpaceShipPage.path}>
-          <GameSpaceShipPage />
-        </Route> */}
+        <Route exact path={route_InGame.path}>
+          <GameSpaceShipGameplayPage />
+        </Route>
 
         {/* --------------------------- SERIVES --------------------- */}
         {/* ---- Home ---- */}

@@ -1,8 +1,10 @@
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -12,38 +14,49 @@ import { text } from "./text";
 import styles from "./GameLobby.module.css";
 import { useContext, useEffect, useState } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { typeGameDetails } from "../../types/typeGameDetails";
 import { constGames } from "../../const/constGames";
+import FriendsList from "./components/FriendsList/FriendsList";
+import { chevronForward } from "ionicons/icons";
+import { route_InGame } from "../../routes/singleRoute";
 
 interface PageProps {}
 
 const GameLobby: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
+  const history = useHistory();
   const { gameUID, lobbyUID } = useParams<{
     gameUID: string;
     lobbyUID: string;
   }>();
   //USE STATES -----------------------
-  const [_thisGame, _setThisGame] = useState<typeGameDetails | null>(null);
+  const [_thisGameInfo, _setThisGameInfo] = useState<typeGameDetails | null>(
+    null
+  );
   //USE EFFECTS ----------------------
   useEffect(() => {
     if (gameUID) {
-      _setThisGame(
+      _setThisGameInfo(
         constGames.find((game: typeGameDetails) => game.gameUID === gameUID) ??
           null
       );
     }
   }, [gameUID]);
   //FUNCTIONS ------------------------
+  const _handleOpenGame = () => {
+    history.push(
+      route_InGame.getPath!({ gameUID: gameUID, lobbyUID: lobbyUID })
+    );
+  };
   //RETURN COMPONENT -----------------
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton text={_thisGame?.title[l]} />
+            <IonBackButton text={_thisGameInfo?.title[l]} />
           </IonButtons>
           <IonTitle>{text[l].pageTitle}</IonTitle>
         </IonToolbar>
@@ -55,7 +68,17 @@ const GameLobby: React.FC<PageProps> = ({}) => {
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
-        <div className={styles.content + " ion-padding"}></div>
+        <div className={styles.content + " ion-padding"}>
+          <FriendsList gameUID={gameUID} lobbyUID={lobbyUID} />
+          <IonButton
+            onClick={() => _handleOpenGame()}
+            color={"success"}
+            expand="block"
+          >
+            {text[l].btn__start}
+            <IonIcon icon={chevronForward} />
+          </IonButton>
+        </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>
     </IonPage>

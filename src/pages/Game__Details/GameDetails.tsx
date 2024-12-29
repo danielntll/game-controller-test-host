@@ -22,7 +22,7 @@ import { route_HomePage } from "../../routes/singleRoute";
 import { addOutline, qrCodeOutline } from "ionicons/icons";
 import { typeGameDetails } from "../../types/typeGameDetails";
 import { constGames } from "../../const/constGames";
-import { useContextManagerLobby } from "../../context/contextManagerLobby";
+import { useContextManagerLobby } from "../../context/lobby/contextManagerLobby";
 import ActiveLobbies from "./components/ActiveLobbies/ActiveLobbies";
 
 interface PageProps {}

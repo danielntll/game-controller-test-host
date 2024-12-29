@@ -9,7 +9,7 @@ import { useContextLanguage } from "../../../../context/contextLanguage";
 import styles from "./ActiveLobbies.module.css";
 import { text } from "./text";
 import { typeNewLobbyDataToFE } from "../../../../types/typeNewLobbyData";
-import { useContextManagerLobby } from "../../../../context/contextManagerLobby";
+import { useContextManagerLobby } from "../../../../context/lobby/contextManagerLobby";
 import { constLobbyStatus } from "../../../../const/constLobbyStatus";
 import { typeLobbyStatusValue } from "../../../../types/typeLobbyStatus";
 import { constGames } from "../../../../const/constGames";

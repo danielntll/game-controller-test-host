@@ -2,7 +2,8 @@ import { typeAvailableLanguagesModel } from "../../types/typeAvailableLanguage";
 
 export const textAuthContext: typeAvailableLanguagesModel = {
   it_IT: {
-    info_welcome_back: "Autenticato con successo!",
+    info_welcome_back: "Bentornato!",
+    info_welcome: "Benvenuto!",
     btn__close_error: "Chiudi",
     modalVerifySendTitle: "Verifica l'email",
     modalVerifySendParagraph:
@@ -15,6 +16,7 @@ export const textAuthContext: typeAvailableLanguagesModel = {
   },
   en_GB: {
     info_welcome_back: "Autenticato con successo!",
+    info_welcome: "Autenticato con successo!",
     btn__close_error: "Chiudi",
     modalVerifySendTitle: "Verifica l'email",
     modalVerifySendParagraph:
